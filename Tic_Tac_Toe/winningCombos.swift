@@ -11,6 +11,7 @@ let x = ["X","X","X"]
 let o = ["O","O","O"]
 
 
+
 func winDiagonalTopLeftToBotRight(game: GameBoard) -> Bool {
     return [game.matrix[0][0],game.matrix[1][1],game.matrix[2][2]] == x || [game.matrix[0][0],game.matrix[1][1],game.matrix[2][2]] == o
 }

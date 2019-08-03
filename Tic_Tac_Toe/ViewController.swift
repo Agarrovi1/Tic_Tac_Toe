@@ -35,7 +35,9 @@ class ViewController: UIViewController {
     @IBOutlet weak var verticalSecond: UILabel!
     @IBOutlet weak var verticalThird: UILabel!
     
-    @IBOutlet weak var viewWithLines: UIView!
+    @IBOutlet weak var playerOneLabel: UILabel!
+    @IBOutlet weak var playerTwoLabel: UILabel!
+    @IBOutlet weak var winLabel: UILabel!
     
     var currentPlayer: Players = .one
     var ticTacToe = GameBoard()
@@ -74,6 +76,17 @@ class ViewController: UIViewController {
         bottomMiddleButton.setTitle("", for: .normal)
         bottomRightButton.setTitle("", for: .normal)
     }
+    func resetTitleForButtonsForDisabledState() {
+        topLeftButton.setTitle("", for: .disabled)
+        topMiddleButton.setTitle("", for: .disabled)
+        topRightButton.setTitle("", for: .disabled)
+        middleLeftButton.setTitle("", for: .disabled)
+        middleMiddleButton.setTitle("", for: .disabled)
+        middleRightButton.setTitle("", for: .disabled)
+        bottomLeftButton.setTitle("", for: .disabled)
+        bottomMiddleButton.setTitle("", for: .disabled)
+        bottomRightButton.setTitle("", for: .disabled)
+    }
     
     func translateWinToLine(game: GameBoard) -> Bool {
         switch true {
@@ -110,6 +123,7 @@ class ViewController: UIViewController {
         }
     }
     
+    
     @IBAction func ticTacToeButtonsPressed(_ sender: UIButton) {
         switch currentPlayer {
         case .one:
@@ -119,26 +133,45 @@ class ViewController: UIViewController {
             if translateWinToLine(game: ticTacToe) {
                 disableAllButtons()
                 scores.increasePOneWins()
+                winLabel.isHidden = false
             } else {
                 currentPlayer = .two
             }
         case .two:
             sender.isEnabled = false
-            ticTacToe.takesTagAndReplacesSpotInMatrix(tag: sender.tag, replaceWith: "X")
+            ticTacToe.takesTagAndReplacesSpotInMatrix(tag: sender.tag, replaceWith: "O")
             sender.setTitle("O", for: .disabled)
             if translateWinToLine(game: ticTacToe) {
                 disableAllButtons()
                 scores.increasePTwoWins()
+                winLabel.isHidden = false
             } else {
                 currentPlayer = .one
             }
         }
+        self.playerOneLabel.text = "X Player One: \(scores.playerOneWins)"
+        self.playerTwoLabel.text = "O Player Two: \(scores.playerTwoWins)"
     }
     
     @IBAction func newGamePressed(_ sender: UIButton) {
         enableAllButtons()
         resetTitleOfButtons()
-        self.viewWithLines.isHidden = true
+        resetTitleForButtonsForDisabledState()
+        ticTacToe = GameBoard(matrix: [["","",""],["","",""],["","",""]])
+        currentPlayer = .one
+        winLabel.isHidden = true
+        diagonalTL.isHidden = true
+        diagonalMM.isHidden = true
+        diagonalBR.isHidden = true
+        diagonalTR.isHidden = true
+        diagonalMM2.isHidden = true
+        diagonalBL.isHidden = true
+        horizontalTop.isHidden = true
+        horizontalMid.isHidden = true
+        horizontalBot.isHidden = true
+        verticalFirst.isHidden = true
+        verticalSecond.isHidden = true
+        verticalThird.isHidden = true
         
     }
     override func viewDidLoad() {
