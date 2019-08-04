@@ -10,6 +10,11 @@ import Foundation
 //["","",""]
 struct GameBoard {
     var matrix = [["","",""],["","",""],["","",""]]
+    var turn = 0
+    
+    mutating func increaseTurnNumber() {
+        turn += 1
+    }
     
     mutating func takesTagAndReplacesSpotInMatrix(tag: Int,replaceWith: String) {
         switch tag {

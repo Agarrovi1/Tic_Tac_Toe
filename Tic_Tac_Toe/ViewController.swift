@@ -43,7 +43,7 @@ class ViewController: UIViewController {
     var ticTacToe = GameBoard()
     var scores = ScoreBoard()
     
-    func disableAllButtons() {
+   private func disableAllButtons() {
         topLeftButton.isEnabled = false
         topMiddleButton.isEnabled = false
         topRightButton.isEnabled = false
@@ -54,7 +54,7 @@ class ViewController: UIViewController {
         bottomMiddleButton.isEnabled = false
         bottomRightButton.isEnabled = false
     }
-    func enableAllButtons() {
+   private func enableAllButtons() {
         topLeftButton.isEnabled = true
         topMiddleButton.isEnabled = true
         topRightButton.isEnabled = true
@@ -65,7 +65,7 @@ class ViewController: UIViewController {
         bottomMiddleButton.isEnabled = true
         bottomRightButton.isEnabled = true
     }
-    func resetTitleOfButtons() {
+   private func resetTitleOfButtons() {
         topLeftButton.setTitle("", for: .normal)
         topMiddleButton.setTitle("", for: .normal)
         topRightButton.setTitle("", for: .normal)
@@ -76,7 +76,7 @@ class ViewController: UIViewController {
         bottomMiddleButton.setTitle("", for: .normal)
         bottomRightButton.setTitle("", for: .normal)
     }
-    func resetTitleForButtonsForDisabledState() {
+   private func resetTitleForButtonsForDisabledState() {
         topLeftButton.setTitle("", for: .disabled)
         topMiddleButton.setTitle("", for: .disabled)
         topRightButton.setTitle("", for: .disabled)
@@ -88,7 +88,7 @@ class ViewController: UIViewController {
         bottomRightButton.setTitle("", for: .disabled)
     }
     
-    func translateWinToLine(game: GameBoard) -> Bool {
+  private func translateWinToLine(game: GameBoard) -> Bool {
         switch true {
         case winDiagonalTopLeftToBotRight(game: game):
             diagonalTL.isHidden = false
@@ -134,8 +134,10 @@ class ViewController: UIViewController {
                 disableAllButtons()
                 scores.increasePOneWins()
                 winLabel.isHidden = false
+                ticTacToe.increaseTurnNumber()
             } else {
                 currentPlayer = .two
+                ticTacToe.increaseTurnNumber()
             }
         case .two:
             sender.isEnabled = false
@@ -145,8 +147,10 @@ class ViewController: UIViewController {
                 disableAllButtons()
                 scores.increasePTwoWins()
                 winLabel.isHidden = false
+                ticTacToe.increaseTurnNumber()
             } else {
                 currentPlayer = .one
+                ticTacToe.increaseTurnNumber()
             }
         }
         self.playerOneLabel.text = "X Player One: \(scores.playerOneWins)"
@@ -157,7 +161,7 @@ class ViewController: UIViewController {
         enableAllButtons()
         resetTitleOfButtons()
         resetTitleForButtonsForDisabledState()
-        ticTacToe = GameBoard(matrix: [["","",""],["","",""],["","",""]])
+        ticTacToe = GameBoard()
         currentPlayer = .one
         winLabel.isHidden = true
         diagonalTL.isHidden = true
@@ -172,11 +176,19 @@ class ViewController: UIViewController {
         verticalFirst.isHidden = true
         verticalSecond.isHidden = true
         verticalThird.isHidden = true
-        
     }
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        topLeftButton.setTitleColor(UIColor.blue, for: .disabled)
+        topMiddleButton.setTitleColor(UIColor.blue, for: .disabled)
+        topRightButton.setTitleColor(UIColor.blue, for: .disabled)
+        middleLeftButton.setTitleColor(UIColor.blue, for: .disabled)
+        middleMiddleButton.setTitleColor(UIColor.blue, for: .disabled)
+        middleRightButton.setTitleColor(UIColor.blue, for: .disabled)
+        bottomLeftButton.setTitleColor(UIColor.blue, for: .disabled)
+        bottomMiddleButton.setTitleColor(UIColor.blue, for: .disabled)
+        bottomRightButton.setTitleColor(UIColor.blue, for: .disabled)
     }
 
 

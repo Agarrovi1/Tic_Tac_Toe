@@ -18,6 +18,7 @@
 		4D72E32C22F51A2F00D3F900 /* Players.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D72E32B22F51A2F00D3F900 /* Players.swift */; };
 		4D72E32E22F51A4D00D3F900 /* ScoreBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D72E32D22F51A4D00D3F900 /* ScoreBoard.swift */; };
 		4D72E33022F51B0100D3F900 /* winningCombos.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D72E32F22F51B0100D3F900 /* winningCombos.swift */; };
+		4D72E33222F63CA600D3F900 /* vsComputerLogic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D72E33122F63CA600D3F900 /* vsComputerLogic.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +56,7 @@
 		4D72E32B22F51A2F00D3F900 /* Players.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Players.swift; sourceTree = "<group>"; };
 		4D72E32D22F51A4D00D3F900 /* ScoreBoard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreBoard.swift; sourceTree = "<group>"; };
 		4D72E32F22F51B0100D3F900 /* winningCombos.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = winningCombos.swift; sourceTree = "<group>"; };
+		4D72E33122F63CA600D3F900 /* vsComputerLogic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = vsComputerLogic.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,6 +114,7 @@
 				4D72E32F22F51B0100D3F900 /* winningCombos.swift */,
 				4D72E32B22F51A2F00D3F900 /* Players.swift */,
 				4D72E32D22F51A4D00D3F900 /* ScoreBoard.swift */,
+				4D72E33122F63CA600D3F900 /* vsComputerLogic.swift */,
 				4D418A8422F50F3E00A1F398 /* Assets.xcassets */,
 				4D418A8622F50F3E00A1F398 /* LaunchScreen.storyboard */,
 				4D418A8922F50F3E00A1F398 /* Info.plist */,
@@ -271,6 +274,7 @@
 				4D72E32C22F51A2F00D3F900 /* Players.swift in Sources */,
 				4D72E33022F51B0100D3F900 /* winningCombos.swift in Sources */,
 				4D418A8022F50F3E00A1F398 /* ViewController.swift in Sources */,
+				4D72E33222F63CA600D3F900 /* vsComputerLogic.swift in Sources */,
 				4D72E32E22F51A4D00D3F900 /* ScoreBoard.swift in Sources */,
 				4D72E32A22F5186F00D3F900 /* GameBoard.swift in Sources */,
 				4D418A7E22F50F3E00A1F398 /* AppDelegate.swift in Sources */,

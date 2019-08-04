@@ -11,4 +11,10 @@ import Foundation
 enum Players {
     case one
     case two
+    case computer
+}
+
+enum Mode {
+    case playerVsPlayer
+    case playerVsComputer
 }
