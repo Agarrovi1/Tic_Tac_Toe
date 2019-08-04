@@ -56,8 +56,13 @@ func chooseAvailableBlankSpot(game: GameBoard) -> Int {
 }
 
 struct Computer {
-    var computerChoice: Int
-    func determineBestChoiceForComputer(game: GameBoard) -> Int {
+    var computerChoice = 0
+    
+    mutating func changeComputerChoice(game: GameBoard) {
+        self.computerChoice = self.determineBestChoiceForComputer(game: game)
+    }
+    
+   private func determineBestChoiceForComputer(game: GameBoard) -> Int {
         let theCornerTags = [game.matrix[0][0],game.matrix[0][2],game.matrix[2][0],game.matrix[2][2]]
 //        var notCornerTags = [game.matrix[0][1],game.matrix[1][0],game.matrix[1][2],game.matrix[2][1]]
         
@@ -73,24 +78,26 @@ struct Computer {
                 return 5
             }
         case 3:
-            if theCornerTags.contains("X") {
-                if diagonal1 == blankThenTwoX {
-                    return 1
-                } else if diagonal1 == twoXThenBlank {
-                    return 9
-                } else if diagonal2 == blankThenTwoX {
-                    return 3
-                } else if diagonal2 == twoXThenBlank {
-                    return 7
-                } else if diagonal1 == ["O","X","X"] || diagonal1 == ["X","X","O"] {
-                    let availableDiagonalTag = [3,7]
-                    if let unwrap = availableDiagonalTag.randomElement() {
-                        return unwrap
-                    }
-                } else if diagonal2 == ["O","X","X"] || diagonal2 == ["X","X","O"] {
-                    let availableDiagonalTag = [1,9]
-                    if let unwrap = availableDiagonalTag.randomElement() {
-                        return unwrap
+            if game.matrix[1][1] == "X" {
+                if theCornerTags.contains("X") {
+                    if diagonal1 == blankThenTwoX {
+                        return 1
+                    } else if diagonal1 == twoXThenBlank {
+                        return 9
+                    } else if diagonal2 == blankThenTwoX {
+                        return 3
+                    } else if diagonal2 == twoXThenBlank {
+                        return 7
+                    } else if diagonal1 == ["O","X","X"] || diagonal1 == ["X","X","O"] {
+                        let availableDiagonalTag = [3,7]
+                        if let unwrap = availableDiagonalTag.randomElement() {
+                            return unwrap
+                        }
+                    } else if diagonal2 == ["O","X","X"] || diagonal2 == ["X","X","O"] {
+                        let availableDiagonalTag = [1,9]
+                        if let unwrap = availableDiagonalTag.randomElement() {
+                            return unwrap
+                        }
                     }
                 }
             } else if game.matrix[1] == blankThenTwoX {

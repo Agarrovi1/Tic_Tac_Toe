@@ -226,6 +226,31 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Pid-Tx-09F">
+                                <rect key="frame" x="138" y="693" width="138" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <state key="normal" title="Vs Computer">
+                                    <color key="titleColor" red="1" green="0.57637232540000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="vsButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="V4v-dM-bnt"/>
+                                </connections>
+                            </button>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="O Comp: 0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vTK-BE-Yb2">
+                                <rect key="frame" x="231" y="109" width="141" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Draw: 0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fU2-EL-RAb">
+                                <rect key="frame" x="138" y="139" width="138" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <color key="textColor" red="0.67872431501917807" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
@@ -234,12 +259,14 @@
                         <outlet property="bottomLeftButton" destination="jJf-Pv-P0a" id="fgs-gV-15Y"/>
                         <outlet property="bottomMiddleButton" destination="4sP-Je-Uy1" id="Sjl-fD-rW8"/>
                         <outlet property="bottomRightButton" destination="RSw-XG-0Z2" id="R8d-2W-Lcj"/>
+                        <outlet property="computerLabel" destination="vTK-BE-Yb2" id="sIl-7O-Xgz"/>
                         <outlet property="diagonalBL" destination="lPr-bR-iUH" id="q9O-f1-BK2"/>
                         <outlet property="diagonalBR" destination="zBp-My-Put" id="xAm-jq-pIz"/>
                         <outlet property="diagonalMM" destination="Huo-Gp-J2L" id="HEj-Qm-yyu"/>
                         <outlet property="diagonalMM2" destination="cdb-wm-P1a" id="tXE-Oc-iNI"/>
                         <outlet property="diagonalTL" destination="Jho-9l-sY1" id="t3e-iL-wG9"/>
                         <outlet property="diagonalTR" destination="AJF-Bu-hur" id="bOS-o1-8AY"/>
+                        <outlet property="drawLabel" destination="fU2-EL-RAb" id="saC-la-HnL"/>
                         <outlet property="horizontalBot" destination="wbW-UD-WDh" id="KKQ-9u-stp"/>
                         <outlet property="horizontalMid" destination="K45-Cb-m4T" id="ySx-9h-zug"/>
                         <outlet property="horizontalTop" destination="Fd4-Wr-SLI" id="azi-Sg-3y6"/>
@@ -254,6 +281,7 @@
                         <outlet property="verticalFirst" destination="Edt-FH-S8r" id="saP-03-PTO"/>
                         <outlet property="verticalSecond" destination="34X-gi-Vs8" id="POq-Y3-qK7"/>
                         <outlet property="verticalThird" destination="S2K-Fu-4eM" id="0cK-6n-TFg"/>
+                        <outlet property="vsButton" destination="Pid-Tx-09F" id="nIW-Ss-9Fe"/>
                         <outlet property="winLabel" destination="BG5-zA-4CU" id="pvs-lM-dYV"/>
                     </connections>
                 </viewController>

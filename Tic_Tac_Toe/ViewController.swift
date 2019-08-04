@@ -38,10 +38,15 @@ class ViewController: UIViewController {
     @IBOutlet weak var playerOneLabel: UILabel!
     @IBOutlet weak var playerTwoLabel: UILabel!
     @IBOutlet weak var winLabel: UILabel!
+    @IBOutlet weak var computerLabel: UILabel!
+    @IBOutlet weak var vsButton: UIButton!
+    @IBOutlet weak var drawLabel: UILabel!
     
     var currentPlayer: Players = .one
     var ticTacToe = GameBoard()
     var scores = ScoreBoard()
+    var mode: Mode = .playerVsPlayer
+    var computer = Computer()
     
    private func disableAllButtons() {
         topLeftButton.isEnabled = false
@@ -122,37 +127,101 @@ class ViewController: UIViewController {
             return false
         }
     }
+    func showCompChoiceOnView(tag: Int) {
+        switch tag {
+        case 1:
+            topLeftButton.isEnabled = false
+            topLeftButton.setTitle("O", for: .disabled)
+        case 2:
+            topMiddleButton.isEnabled = false
+            topMiddleButton.setTitle("O", for: .disabled)
+        case 3:
+            topRightButton.isEnabled = false
+            topRightButton.setTitle("O", for: .disabled)
+        case 4:
+            middleLeftButton.isEnabled = false
+            middleLeftButton.setTitle("O", for: .disabled)
+        case 5:
+            middleMiddleButton.isEnabled = false
+            middleMiddleButton.setTitle("O", for: .disabled)
+        case 6:
+            middleRightButton.isEnabled = false
+            middleRightButton.setTitle("O", for: .disabled)
+        case 7:
+            bottomLeftButton.isEnabled = false
+            bottomLeftButton.setTitle("O", for: .disabled)
+        case 8:
+            bottomMiddleButton.isEnabled = false
+            bottomMiddleButton.setTitle("O", for: .disabled)
+        case 9:
+            bottomRightButton.isEnabled = false
+            bottomRightButton.setTitle("O", for: .disabled)
+        default:
+            return
+        }
+    }
     
     
     @IBAction func ticTacToeButtonsPressed(_ sender: UIButton) {
-        switch currentPlayer {
-        case .one:
+        switch mode {
+        case .playerVsPlayer:
+            switch currentPlayer {
+            case .one:
+                sender.isEnabled = false
+                ticTacToe.takesTagAndReplacesSpotInMatrix(tag: sender.tag, replaceWith: "X")
+                sender.setTitle("X", for: .disabled)
+                if translateWinToLine(game: ticTacToe) {
+                    disableAllButtons()
+                    scores.increasePOneWins()
+                    winLabel.isHidden = false
+                    ticTacToe.increaseTurnNumber()
+                } else {
+                    currentPlayer = .two
+                    ticTacToe.increaseTurnNumber()
+                }
+            case .two:
+                sender.isEnabled = false
+                ticTacToe.takesTagAndReplacesSpotInMatrix(tag: sender.tag, replaceWith: "O")
+                sender.setTitle("O", for: .disabled)
+                if translateWinToLine(game: ticTacToe) {
+                    disableAllButtons()
+                    scores.increasePTwoWins()
+                    winLabel.isHidden = false
+                    ticTacToe.increaseTurnNumber()
+                } else {
+                    currentPlayer = .one
+                    ticTacToe.increaseTurnNumber()
+                }
+            }
+        case .playerVsComputer:
             sender.isEnabled = false
             ticTacToe.takesTagAndReplacesSpotInMatrix(tag: sender.tag, replaceWith: "X")
             sender.setTitle("X", for: .disabled)
+            ticTacToe.increaseTurnNumber()
             if translateWinToLine(game: ticTacToe) {
                 disableAllButtons()
                 scores.increasePOneWins()
                 winLabel.isHidden = false
                 ticTacToe.increaseTurnNumber()
-            } else {
-                currentPlayer = .two
-                ticTacToe.increaseTurnNumber()
+                break
             }
-        case .two:
-            sender.isEnabled = false
-            ticTacToe.takesTagAndReplacesSpotInMatrix(tag: sender.tag, replaceWith: "O")
-            sender.setTitle("O", for: .disabled)
+            
+            computer.changeComputerChoice(game: ticTacToe)
+            ticTacToe.takesTagAndReplacesSpotInMatrix(tag: computer.computerChoice, replaceWith: "O")
+            showCompChoiceOnView(tag: computer.computerChoice)
+            ticTacToe.increaseTurnNumber()
             if translateWinToLine(game: ticTacToe) {
                 disableAllButtons()
-                scores.increasePTwoWins()
+                scores.increaseCompWins()
                 winLabel.isHidden = false
-                ticTacToe.increaseTurnNumber()
-            } else {
-                currentPlayer = .one
                 ticTacToe.increaseTurnNumber()
             }
         }
+        if translateWinToLine(game: ticTacToe) == false && ticTacToe.turn == 10 {
+            scores.tie()
+        }
+        self.drawLabel.text = "Draw: \(scores.draw)"
+        self.computerLabel.text = "O Comp: \(scores.compWins)"
         self.playerOneLabel.text = "X Player One: \(scores.playerOneWins)"
         self.playerTwoLabel.text = "O Player Two: \(scores.playerTwoWins)"
     }
@@ -177,6 +246,34 @@ class ViewController: UIViewController {
         verticalSecond.isHidden = true
         verticalThird.isHidden = true
     }
+    
+    @IBAction func vsButtonPressed(_ sender: UIButton) {
+        switch mode {
+        case .playerVsPlayer:
+            mode = .playerVsComputer
+            playerTwoLabel.isHidden = true
+            computerLabel.isHidden = false
+            vsButton.setTitle("Vs Player", for: .normal)
+            if ticTacToe.turn % 2 != 0 {
+                computer.changeComputerChoice(game: ticTacToe)
+                ticTacToe.takesTagAndReplacesSpotInMatrix(tag: computer.computerChoice, replaceWith: "O")
+                showCompChoiceOnView(tag: computer.computerChoice)
+                ticTacToe.increaseTurnNumber()
+                if translateWinToLine(game: ticTacToe) {
+                    disableAllButtons()
+                    scores.increaseCompWins()
+                    winLabel.isHidden = false
+                    ticTacToe.increaseTurnNumber()
+                }
+            }
+        case .playerVsComputer:
+            mode = .playerVsPlayer
+            playerTwoLabel.isHidden = false
+            computerLabel.isHidden = true
+            vsButton.setTitle("Vs Computer", for: .normal)
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.

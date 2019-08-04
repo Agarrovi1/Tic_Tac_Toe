@@ -12,6 +12,7 @@ struct ScoreBoard {
     var playerOneWins = 0
     var playerTwoWins = 0
     var draw = 0
+    var compWins = 0
     
     mutating func increasePOneWins() {
         playerOneWins += 1
@@ -21,5 +22,8 @@ struct ScoreBoard {
     }
     mutating func tie() {
         draw += 1
+    }
+    mutating func increaseCompWins() {
+        compWins += 1
     }
 }
