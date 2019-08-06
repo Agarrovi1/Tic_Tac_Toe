@@ -92,6 +92,24 @@ class ViewController: UIViewController {
         bottomMiddleButton.setTitle("", for: .disabled)
         bottomRightButton.setTitle("", for: .disabled)
     }
+    func checkIfButtonsAreDisabled() -> Bool {
+        let arr = [topLeftButton,topMiddleButton,topRightButton,middleLeftButton,middleMiddleButton,middleRightButton,bottomLeftButton,bottomMiddleButton,bottomRightButton]
+        var trueOrFalseArr = [Bool]()
+        for a in arr {
+            if let unwrap = a {
+                if unwrap.isEnabled == false {
+                    trueOrFalseArr.append(false)
+                } else {
+                    trueOrFalseArr.append(true)
+                }
+            }
+        }
+        if trueOrFalseArr.contains(true) {
+            return false
+        } else {
+            return true
+        }
+    }
     
   private func translateWinToLine(game: GameBoard) -> Bool {
         switch true {
@@ -205,7 +223,9 @@ class ViewController: UIViewController {
                 ticTacToe.increaseTurnNumber()
                 break
             }
-            
+            guard checkIfButtonsAreDisabled() == false else {
+                break
+            }
             computer.changeComputerChoice(game: ticTacToe)
             ticTacToe.takesTagAndReplacesSpotInMatrix(tag: computer.computerChoice, replaceWith: "O")
             showCompChoiceOnView(tag: computer.computerChoice)
@@ -217,7 +237,7 @@ class ViewController: UIViewController {
                 ticTacToe.increaseTurnNumber()
             }
         }
-        if translateWinToLine(game: ticTacToe) == false && ticTacToe.turn == 10 {
+        if translateWinToLine(game: ticTacToe) == false && ticTacToe.turn >= 9 {
             scores.tie()
         }
         self.drawLabel.text = "Draw: \(scores.draw)"

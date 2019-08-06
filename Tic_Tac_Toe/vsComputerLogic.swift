@@ -33,6 +33,53 @@ var blankThenTwoX = ["","X","X"]
 var xBlankX = ["X","","X"]
 var oBlankO = ["O","","O"]
 let oXO = ["O","X","O"]
+let blankOO = ["","O","O"]
+let OOBlank = ["O","O",""]
+
+func lookForWinForComputer(game: GameBoard) -> (Bool,Int) {
+    switch true {
+    case game.matrix[0] == blankOO || [game.matrix[0][0],game.matrix[1][0],game.matrix[2][0]] == blankOO || [game.matrix[0][0],game.matrix[1][1],game.matrix[2][2]] == blankOO:
+        return (true,1)
+    case game.matrix[1] == blankOO || [game.matrix[1][0],game.matrix[0][0],game.matrix[2][0]] == blankOO:
+        return (true,4)
+    case game.matrix[2] == blankOO || [game.matrix[2][0],game.matrix[1][0],game.matrix[0][0]] == blankOO || [game.matrix[2][0],game.matrix[1][1],game.matrix[0][2]] == blankOO:
+        return (true,7)
+    case [game.matrix[0][2],game.matrix[0][1],game.matrix[0][0]] == blankOO || [game.matrix[0][2],game.matrix[1][2],game.matrix[2][2]] == blankOO || [game.matrix[0][2],game.matrix[1][1],game.matrix[2][0]] == blankOO:
+        return (true,3)
+    case [game.matrix[0][1],game.matrix[0][2],game.matrix[0][0]] == blankOO || [game.matrix[0][1],game.matrix[1][1],game.matrix[2][1]] == blankOO:
+        return (true,2)
+    case [game.matrix[1][2],game.matrix[1][1],game.matrix[1][0]] == blankOO || [game.matrix[1][2],game.matrix[0][2],game.matrix[2][2]] == blankOO:
+        return (true,6)
+    case [game.matrix[2][2],game.matrix[2][1],game.matrix[2][0]] == blankOO || [game.matrix[2][2],game.matrix[1][2],game.matrix[0][2]] == blankOO || [game.matrix[2][2],game.matrix[1][1],game.matrix[0][0]] == blankOO:
+        return (true,9)
+    case [game.matrix[2][1],game.matrix[2][2],game.matrix[2][0]] == blankOO || [game.matrix[2][1],game.matrix[1][1],game.matrix[0][1]] == blankOO:
+        return (true,8)
+    default:
+        return (false,0)
+    }
+}
+func lookToBlockForComputer(game: GameBoard) -> (Bool,Int) {
+    switch true {
+    case game.matrix[0] == blankThenTwoX || [game.matrix[0][0],game.matrix[1][0],game.matrix[2][0]] == blankThenTwoX || [game.matrix[0][0],game.matrix[1][1],game.matrix[2][2]] == blankThenTwoX:
+        return (true,1)
+    case game.matrix[1] == blankThenTwoX || [game.matrix[1][0],game.matrix[0][0],game.matrix[2][0]] == blankThenTwoX:
+        return (true,4)
+    case game.matrix[2] == blankThenTwoX || [game.matrix[2][0],game.matrix[1][0],game.matrix[0][0]] == blankThenTwoX || [game.matrix[2][0],game.matrix[1][1],game.matrix[0][2]] == blankThenTwoX:
+        return (true,7)
+    case [game.matrix[0][2],game.matrix[0][1],game.matrix[0][0]] == blankThenTwoX || [game.matrix[0][2],game.matrix[1][2],game.matrix[2][2]] == blankThenTwoX || [game.matrix[0][2],game.matrix[1][1],game.matrix[2][0]] == blankThenTwoX:
+        return (true,3)
+    case [game.matrix[0][1],game.matrix[0][2],game.matrix[0][0]] == blankThenTwoX || [game.matrix[0][1],game.matrix[1][1],game.matrix[2][1]] == blankThenTwoX:
+        return (true,2)
+    case [game.matrix[1][2],game.matrix[1][1],game.matrix[1][0]] == blankThenTwoX || [game.matrix[1][2],game.matrix[0][2],game.matrix[2][2]] == blankThenTwoX:
+        return (true,6)
+    case [game.matrix[2][2],game.matrix[2][1],game.matrix[2][0]] == blankThenTwoX || [game.matrix[2][2],game.matrix[1][2],game.matrix[0][2]] == blankThenTwoX || [game.matrix[2][2],game.matrix[1][1],game.matrix[0][0]] == blankThenTwoX:
+        return (true,9)
+    case [game.matrix[2][1],game.matrix[2][2],game.matrix[2][0]] == blankThenTwoX || [game.matrix[2][1],game.matrix[1][1],game.matrix[0][1]] == blankThenTwoX:
+        return (true,8)
+    default:
+        return (false,0)
+    }
+}
 
 func chooseAvailableBlankSpot(game: GameBoard) -> Int {
     switch "" {
@@ -62,9 +109,9 @@ struct Computer {
         self.computerChoice = self.determineBestChoiceForComputer(game: game)
     }
     
-   private func determineBestChoiceForComputer(game: GameBoard) -> Int {
+    private func determineBestChoiceForComputer(game: GameBoard) -> Int {
         let theCornerTags = [game.matrix[0][0],game.matrix[0][2],game.matrix[2][0],game.matrix[2][2]]
-//        var notCornerTags = [game.matrix[0][1],game.matrix[1][0],game.matrix[1][2],game.matrix[2][1]]
+        //        var notCornerTags = [game.matrix[0][1],game.matrix[1][0],game.matrix[1][2],game.matrix[2][1]]
         
         let diagonal1 = [game.matrix[0][0],game.matrix[1][1],game.matrix[2][2]]
         let diagonal2 = [game.matrix[0][2],game.matrix[1][1],game.matrix[2][0]]
@@ -138,7 +185,13 @@ struct Computer {
                 return chooseAvailableBlankSpot(game: game)
             }
         case 5:
-            if game.matrix[1][1] == "X" {
+            let isThereWinForComp = lookForWinForComputer(game: game)
+            let needToBlockForComp = lookToBlockForComputer(game: game)
+            if isThereWinForComp.0 {
+                return isThereWinForComp.1
+            } else if needToBlockForComp.0 {
+                return needToBlockForComp.1
+            } else if game.matrix[1][1] == "X" {
                 if game.matrix[0] == oBlankO {
                     return 2
                 } else if game.matrix[2] == oBlankO {
@@ -168,7 +221,15 @@ struct Computer {
                 return chooseAvailableBlankSpot(game: game)
             }
         default:
-            return chooseAvailableBlankSpot(game: game)
+            let isThereWinForComp = lookForWinForComputer(game: game)
+            let needToBlockForComp = lookToBlockForComputer(game: game)
+            if isThereWinForComp.0 {
+                return isThereWinForComp.1
+            } else if needToBlockForComp.0 {
+                return needToBlockForComp.1
+            } else {
+                return chooseAvailableBlankSpot(game: game)
+            }
         }
         return chooseAvailableBlankSpot(game: game)
     }
